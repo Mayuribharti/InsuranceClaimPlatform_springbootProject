@@ -24,4 +24,40 @@ public class PolicyService {
     public List<Policy> getAllPolicies() {
         return policyRepository.findAll();
     }
+
+    public void deletePolicy(Long id) {
+        policyRepository.deleteById(id);
+    }
+
+    public Policy updatePolicy(Long id, Policy policy) {
+        Policy existingPolicy = policyRepository.findById(id).orElse(null);
+        if(existingPolicy != null) {
+            existingPolicy.setPolicyNumber(policy.getPolicyNumber());
+            existingPolicy.setPolicyType(policy.getPolicyType());
+            existingPolicy.setCoverageAmount(policy.getCoverageAmount());
+            existingPolicy.setPremiumAmount(policy.getPremiumAmount());
+            return policyRepository.save(existingPolicy);
+        }
+        return null;
+    }
+
+    public Policy patchPolicy(Long id, Policy policy) {
+        Policy existingPolicy = policyRepository.findById(id).orElse(null);
+        if(existingPolicy != null) {
+            if(policy.getPolicyNumber() != null) {
+                existingPolicy.setPolicyNumber(policy.getPolicyNumber());
+            }
+            if(policy.getPolicyType() != null) {
+                existingPolicy.setPolicyType(policy.getPolicyType());
+            }
+            if(policy.getCoverageAmount() != null) {
+                existingPolicy.setCoverageAmount(policy.getCoverageAmount());
+            }
+            if(policy.getPremiumAmount() != null) {
+                existingPolicy.setPremiumAmount(policy.getPremiumAmount());
+            }
+            return policyRepository.save(existingPolicy);
+        }
+        return null;
+    }
 }
