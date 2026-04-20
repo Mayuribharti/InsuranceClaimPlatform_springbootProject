@@ -60,4 +60,16 @@ public class PolicyService {
         }
         return null;
     }
+
+    public List<Policy> filterPolicies(String type, String status) {
+        if(type != null && status != null) {
+            return policyRepository.findByPolicyTypeAndStatus(type, status);
+        } else if(type != null) {
+            return policyRepository.findByPolicyType(type);
+        } else if(status != null) {
+            return policyRepository.findByStatus(status);
+        } else {
+            return policyRepository.findAll();
+        }
+    }
 }

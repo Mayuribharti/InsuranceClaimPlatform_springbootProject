@@ -48,4 +48,9 @@ public class PolicyController {
     public Policy patchPolicy(@PathVariable Long id, @RequestBody Policy policy) {
         return policyService.patchPolicy(id, policy);
     }
+
+    @GetMapping("/filter}")
+    public List<Policy> filterPolicies(@RequestParam String type, @RequestParam String status) {
+        return policyService.filterPolicies(type, status);
+    }
 }
